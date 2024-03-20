@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <style>
+        
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        /* Button styling */
+        .take-attendance-btn {
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .take-attendance-btn:hover {
+            background-color: #037f54;
+        }
+
+
+        .take-attendance-btn1 {
+            margin: 20px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .take-attendance-btn1:hover {
+            background-color: #a50101;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="/">Registration</a></li>
+        <li><a class="active" href="/user_details">Attendance</a></li>
+        <li><a href="#contact">Reg DB</a></li>
+        <li><a href="/index">Live Data</a></li>
+    </ul>
+
+    <!-- Take Attendance Button -->
+    <a href="/start"><button class="take-attendance-btn">Take Attendance</button></a>
+
+    <a href="/stop"><button class="take-attendance-btn1">Stop Attendance</button></a>
+
+<h2>Attendance Table</h2>
+
+<table id="userDetailsTable">
+    <tr>
+        <th>User Number</th>
+        <th>Name</th>
+        <th>Date Detected</th>
+        <th>Time Entry</th>
+        <th>Time Exit</th>
+        <th>Spent Time (minutes)</th>
+    </tr>
+    <!-- Rows will be added here dynamically -->
+</table>
+
+<script>
+    function fetchUserDetails() {
+        fetch('/get-data-atd')
+            .then(response => response.json())
+            .then(data => {
+                const table = document.getElementById('userDetailsTable');
+                while (table.rows.length > 1) {
+                    table.deleteRow(1);
+                }
+                data.forEach(user => {
+                    const row = table.insertRow();
+                    row.insertCell(0).innerHTML = user.user_number;
+                    row.insertCell(1).innerHTML = user.name;
+                    row.insertCell(2).innerHTML = user.detected_date;
+                    row.insertCell(3).innerHTML = user.time_entry === "0" ? "N/A" : user.time_entry;
+                    row.insertCell(4).innerHTML = user.time_exit === "0" ? "N/A" : user.time_exit;
+                    row.insertCell(5).innerHTML = user.spent_time;
+                });
+            })
+            .catch(error => console.error('Error fetching user details:', error));
+    }
+
+    window.onload = fetchUserDetails;
+    setInterval(fetchUserDetails, 5000); // Refresh data every 5 seconds
+</script>
+
+
+</body>
+</html>

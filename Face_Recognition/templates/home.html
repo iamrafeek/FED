@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facial Attendence System</title>
+<style>
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .navbar {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  .navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  .navbar-right {
+    display: flex;
+  }
+  .navbar-right a {
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin-left: 10px;
+  }
+  .navbar-right a.register {
+    background-color: #fff;
+    color: #000;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  .left-content, .right-content {
+    width: 48%;
+    padding: 20px;
+    background: #f1f1f1;
+    text-align:center;
+    margin:auto;
+    align-items:center;
+  }
+  .left-content {
+    border: 1px solid #ccc;
+  }
+  h1 {
+    color: #000;
+    text-align: center;
+  }
+  .register-form input,
+  .register-form button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  .register-form button {
+    background-color: #ff9900;
+    color: #fff;
+    border: none;
+  }
+</style>
+</head>
+<body>
+
+  <ul>
+    <li><a class="active" href="/">Registration</a></li>
+    <li><a href="/user_details">Attendance</a></li>
+    <li><a href="#contact">Reg DB</a></li>
+    <li><a href="/index">Live Data</a></li>
+
+  </ul>
+
+
+
+<div class="container">
+  <div class="left-content">
+    <h2>Register</h2>
+    <center>
+    <form class="register-form" action='/add' method="POST" enctype="multipart/form-data">
+      <input style="width:600px;" id="newusername" name='newusername' type="Name" placeholder="Name" required>
+      <button style="width:600px;" type="submit">Register</button>
+    </form>
+    </center>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+    body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    #data-display {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
+      
+      li {
+        float: left;
+      }
+      
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      
+      li a:hover:not(.active) {
+        background-color: #111;
+      }
+      
+      .active {
+        background-color: #04AA6D;
+      }
+    </style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <ul>
+        <li><a href="/">Registration</a></li>
+        <li><a href="/user_details">Attendance</a></li>
+        <li><a href="#contact">Reg DB</a></li>
+        <li><a class="active" href="/index">Live Data</a></li>
+    
+      </ul>
+    <title>Live</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+</head>
+<body>
+    <h1>Live Data</h1>
+    <div id="data-display">Waiting for data...</div>
+
+    <script>
+        function fetchData() {
+    $.ajax({
+        url: '/get-data',
+        type: 'GET',
+        success: function(response) {
+            var displayText = '';
+            response.forEach(function(row) {
+                for (var key in row) {
+                    if (row.hasOwnProperty(key)) {
+                        displayText += key + ': ' + row[key] + '; ';
+                    }
+                }
+                displayText += '<br>'; // Separate rows
+            });
+            $('#data-display').html(displayText);
+        },
+        error: function(error) {
+            console.log('Error fetching data:', error);
+            $('#data-display').html('Error fetching data. Please try again later.');
+        }
+    });
+}
+
+// Fetch data every 5 seconds
+setInterval(fetchData, 5000);
+
+    </script>
+</body>
+</html>
